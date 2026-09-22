@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fabrizzio Martinez | Analista & Ingeniero de Sistemas</title>
   
-  <!-- Favicon SVG integrado -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090a0c'/%3E%3Crect x='3' y='3' width='58' height='58' rx='11' fill='none' stroke='%2326282c' stroke-width='1.5'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='24' font-weight='600' fill='%23eaeaea' letter-spacing='2'%3EFM%3C/text%3E%3C/svg%3E">
+  <!-- Favicon SVG en Microchip Azul Medianoche & Plata -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141c2e'/%3E%3Crect x='3' y='3' width='58' height='58' rx='11' fill='none' stroke='%2338bdf8' stroke-width='1.5' stroke-opacity='0.5'/%3E%3Cpath d='M14 32h8M42 32h8M32 14v8M32 42v8' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round'/%3E%3Crect x='22' y='22' width='20' height='20' rx='4' fill='%231e293b' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Ctext x='50%25' y='53%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia, serif' font-size='12' font-weight='bold' fill='%23f1f5f9'%3EFM%3C/text%3E%3C/svg%3E">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Cormorant Garamond & Montserrat -->
+  <!-- Google Fonts: Cinzel & Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,7 +24,7 @@
       theme: {
         extend: {
           fontFamily: {
-            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
             sans: ['"Montserrat"', 'sans-serif'],
           }
         }
@@ -33,63 +33,94 @@
   </script>
 
   <style>
+    /* 1. Dimensiones bloqueadas en píxeles para evitar cualquier reflow o salto vertical */
     .card-dimension {
       width: 560px;
       height: 311px;
-      aspect-ratio: 90 / 50;
+      min-width: 560px;
+      max-width: 560px;
+      min-height: 311px;
+      max-height: 311px;
+      position: relative;
+      margin: 0 auto;
     }
 
     @media (max-width: 640px) {
       .card-dimension {
-        width: 100%;
-        max-width: 390px;
-        height: auto;
-        aspect-ratio: 90 / 50;
+        width: 360px;
+        height: 200px;
+        min-width: 360px;
+        max-width: 360px;
+        min-height: 200px;
+        max-height: 200px;
       }
     }
 
+    /* 2. Perspectiva con origen axial rigurosamente centrado al 50% 50% */
     .perspective-container {
-      perspective: 1600px;
+      perspective: 1200px;
+      -webkit-perspective: 1200px;
+      perspective-origin: 50% 50%;
+      -webkit-perspective-origin: 50% 50%;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
+    /* 3. Flipper: Anclado estrictamente a su centro rotatorio axial */
     .flipper {
       position: relative;
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      -webkit-transform-style: preserve-3d;
+      transform-origin: center center;
+      -webkit-transform-origin: center center;
+      transition: transform 0.65s cubic-bezier(0.4, 0.0, 0.2, 1);
+      will-change: transform;
     }
 
     .flipper.is-flipped {
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
     }
 
+    /* 4. Caras: Tamaño idéntico al pixel y backface oculto sin proyección vertical */
     .card-face {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      border-radius: 2px;
+      border-radius: 4px;
       overflow: hidden;
-      background-color: #0f1012;
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      background: linear-gradient(135deg, #162035 0%, #0f172a 100%);
+      border: 1px solid rgba(147, 197, 253, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(7, 11, 20, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.03);
+      transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg);
     }
 
     .card-face-back {
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
     }
 
+    /* Grano sutil satinado mate */
     .paper-grain {
       background-image: 
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.015) 0%, transparent 100%),
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.006) 0px, transparent 1px, transparent 2px),
-        repeating-linear-gradient(90deg, rgba(255,255,255,0.006) 0px, transparent 1px, transparent 2px);
+        radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.04) 0%, transparent 100%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.007) 0px, transparent 1px, transparent 2px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.007) 0px, transparent 1px, transparent 2px);
     }
 
-    .letterpress-text {
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9), 0 -1px 0 rgba(255, 255, 255, 0.03);
+    .letterpress-title {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 1px rgba(255, 255, 255, 0.1);
     }
 
+    /* Impresión física / PDF sin rotación ni espejo */
     .print-only {
       display: none;
     }
@@ -123,9 +154,9 @@
       .card-print {
         width: 90mm !important;
         height: 50mm !important;
-        background-color: #0f1012 !important;
+        background: #162035 !important;
         box-shadow: none !important;
-        border: 0.25pt solid #2a2b2e !important;
+        border: 0.3pt solid #334155 !important;
         page-break-inside: avoid !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -134,218 +165,267 @@
     }
   </style>
 </head>
-<body class="bg-[#090a0c] text-[#d6d6d8] min-h-screen flex flex-col items-center justify-between font-sans selection:bg-neutral-800 selection:text-white antialiased p-4 sm:p-8">
+<body class="bg-[#0b101d] text-[#e2e8f0] min-h-screen flex flex-col items-center justify-between font-sans antialiased p-4 sm:p-8 selection:bg-slate-700 selection:text-white">
 
-  <!-- Header de marca -->
-  <header class="no-print w-full max-w-xl flex items-center justify-between py-2 border-b border-neutral-900/80">
+  <!-- Header Superior Sobrio -->
+  <header class="no-print w-full max-w-xl flex items-center justify-between py-2 border-b border-slate-800/70">
     <div class="flex items-center gap-2.5">
-      <div class="w-6 h-6 border border-neutral-800 flex items-center justify-center text-[10px] tracking-widest font-serif text-neutral-300">
+      <div class="w-6 h-6 border border-slate-600 bg-[#1e2a44] flex items-center justify-center text-[10px] tracking-widest font-cinzel text-slate-100">
         FM
       </div>
-      <span class="text-[11px] font-serif tracking-[0.25em] uppercase text-neutral-300">
+      <span class="text-[11px] font-cinzel tracking-[0.25em] uppercase text-slate-200 font-medium">
         Martinez Campos
       </span>
     </div>
-    <span class="text-[9px] font-sans text-neutral-500 tracking-[0.2em] uppercase">Sistemas & Software</span>
+    <span class="text-[9px] font-mono text-sky-300/80 uppercase tracking-widest"></span>
   </header>
 
-  <!-- Tarjeta interactiva 3D -->
+  <!-- Contenedor Interactivo con giro anclado -->
   <main class="no-print w-full flex-1 flex flex-col items-center justify-center py-6 sm:py-10">
 
-    <div class="perspective-container card-dimension cursor-pointer select-none" onclick="toggleFlip()" title="Haz clic para voltear">
+    <div class="perspective-container card-dimension cursor-pointer select-none" onclick="toggleFlip()" title="Toca o haz clic para girar la tarjeta">
       <div id="cardFlipper" class="flipper">
 
-        <!-- Cara frontal (Datos de contacto & Valor clave) -->
-        <div class="card-face paper-grain p-8 sm:p-10 flex flex-col justify-between">
-          <div class="flex items-center justify-between text-[8.5px] text-neutral-500 tracking-[0.25em] font-serif uppercase">
-            <span>Sistemas Empresariales</span>
-            <span>Lima, Perú</span>
+        <!-- ================================================================ -->
+        <!-- CARA 1: ANVERSO                                                  -->
+        <!-- ================================================================ -->
+        <div class="card-face paper-grain p-6 sm:p-8 flex flex-col justify-between relative">
+          
+          <!-- Pistas Vectoriales de Circuito Grabadas -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 311">
+            <path d="M0 45 h90 l25 25 h110 m50 -25 h60 l20 20 h100" fill="none" stroke="#60a5fa" stroke-width="1.2" stroke-opacity="0.6"/>
+            <circle cx="90" cy="45" r="2.5" fill="#93c5fd"/>
+            <circle cx="225" cy="70" r="2.5" fill="#93c5fd"/>
+            <circle cx="435" cy="65" r="2.5" fill="#93c5fd"/>
+            
+            <path d="M560 260 h-105 l-30 -30 h-100 m-45 0 h-75 l-20 20 h-105" fill="none" stroke="#60a5fa" stroke-width="1.2" stroke-opacity="0.6"/>
+            <circle cx="455" cy="260" r="2.5" fill="#93c5fd"/>
+            <circle cx="280" cy="230" r="2.5" fill="#93c5fd"/>
+            <circle cx="85" cy="250" r="2.5" fill="#93c5fd"/>
+          </svg>
+
+          <!-- Barra Superior Meta -->
+          <div class="relative z-10 flex items-center justify-between text-[8px] sm:text-[8.5px] text-slate-400/90 tracking-[0.22em] font-sans uppercase">
+            <span class="flex items-center gap-1.5 text-sky-400/80 font-mono text-[8px]">
+            </span>
+            <span class="flex items-center gap-1 text-[7.5px] text-sky-300/70 border border-sky-400/20 px-1.5 py-0.5 rounded">
+              Girar ⇄
+            </span>
           </div>
 
-          <div class="grid grid-cols-12 gap-4 items-center my-auto">
-            <!-- Columna Izquierda: Identidad y Servicios de Impacto -->
-            <div class="col-span-6 pr-3 border-r border-neutral-800/80">
-              <h1 class="text-base sm:text-[17px] font-serif font-medium text-[#eaeaea] tracking-[0.08em] uppercase leading-tight letterpress-text">
-                Fabrizzio Martinez
+          <!-- Cuerpo Dividido en Dos Bloques Claros -->
+          <div class="relative z-10 grid grid-cols-12 gap-3 sm:gap-5 items-center my-auto">
+            
+            <!-- Columna Izquierda: Identidad y Especialidades -->
+            <div class="col-span-7 pr-2 sm:pr-3 border-r border-slate-700/60">
+              <h1 class="text-[15px] sm:text-[19px] font-cinzel font-medium text-[#f8fafc] tracking-[0.08em] uppercase leading-tight letterpress-title">
+                FABRIZZIO MARTINEZ
               </h1>
-              <p class="text-[9px] sm:text-[9.5px] font-sans text-neutral-400 tracking-[0.18em] uppercase font-light mt-1.5 leading-snug">
-                Ingeniero & Analista de Sistemas
+              
+              <p class="text-[8.5px] sm:text-[10px] font-sans text-slate-300 tracking-[0.16em] uppercase font-light mt-1 sm:mt-1.5 leading-snug">
+                INGENIERO & ANALISTA DE SISTEMAS
               </p>
-              <!-- Enfoque de servicios -->
-              <div class="mt-2 text-[8px] sm:text-[8.5px] text-neutral-400 font-sans tracking-wide space-y-0.5">
-                <div>• Análisis funcional & Procesos</div>
-                <div>• Arquitectura & Bases de Datos</div>
-                <div>• Desarrollo .NET • T-SQL • Web</div>
+
+              <!-- Lo que ofreces: Con guiones editoriales sobrios -->
+              <div class="mt-2.5 sm:mt-3.5 space-y-1 text-[8px] sm:text-[9.5px] font-sans text-slate-300/95 font-light">
+                <div class="flex items-start gap-1.5 leading-tight">
+                  <span class="text-slate-400 font-mono">-</span>
+                  <span>Análisis funcional & Procesos</span>
+                </div>
+                <div class="flex items-start gap-1.5 leading-tight">
+                  <span class="text-slate-400 font-mono">-</span>
+                  <span>Arquitectura & Bases de Datos</span>
+                </div>
+                <div class="flex items-start gap-1.5 leading-tight">
+                  <span class="text-slate-400 font-mono">-</span>
+                  <span>Desarrollo .NET · T-SQL · Web</span>
+                </div>
               </div>
             </div>
 
-            <!-- Columna Derecha: Canales Directos -->
-            <div class="col-span-6 pl-2 sm:pl-3 text-[9px] sm:text-[9.5px] font-sans font-light text-neutral-400 space-y-2.5">
+            <!-- Columna Derecha: Bloque de Soluciones & Contacto -->
+            <div class="col-span-5 pl-2 sm:pl-3 space-y-2.5 sm:space-y-3 font-sans">
               <div>
-                <div class="text-[#dedede] font-medium tracking-[0.16em] text-[8.5px] uppercase">Soluciones TI & Software</div>
-                <div class="text-neutral-500 text-[8px] tracking-wider mt-0.5">Consultoría & Desarrollo</div>
+                <div class="text-[#f8fafc] font-semibold tracking-[0.12em] text-[8.5px] sm:text-[10px] uppercase">
+                  SOLUCIONES TI & SOFTWARE
+                </div>
+                <div class="text-slate-400 text-[7.5px] sm:text-[8.5px] tracking-wider mt-0.5 font-light">
+                  Consultoría & Desarrollo
+                </div>
               </div>
 
-              <div class="space-y-1 text-neutral-300">
+              <div class="space-y-1.5 sm:space-y-2 pt-0.5 text-slate-200">
+                <!-- Enlace rápido a WhatsApp (con stopPropagation para no girar la tarjeta) -->
                 <button onclick="openWhatsApp(event)" 
                         title="Escribir por WhatsApp"
-                        class="group flex items-center gap-1.5 py-0.5 hover:text-white transition-colors duration-200 text-left">
-                  <span class="text-neutral-500 group-hover:text-emerald-400 transition-colors text-[8px] font-mono w-3.5"><i class="fa-brands fa-whatsapp"></i></span>
-                  <span class="tracking-wider text-[9px] underline decoration-neutral-700 underline-offset-2 group-hover:decoration-neutral-300">+51 946 597 728</span>
+                        class="group flex items-center gap-2 py-0.5 text-left cursor-pointer">
+                  <i class="fa-brands fa-whatsapp text-slate-400 group-hover:text-emerald-400 text-xs sm:text-sm transition-colors duration-200 shrink-0"></i>
+                  <span class="tracking-wider font-mono text-[9px] sm:text-[11px] font-medium text-slate-100 group-hover:text-emerald-300 underline decoration-slate-600/80 underline-offset-4 group-hover:decoration-emerald-400 transition-colors">+51 946 597 728</span>
                 </button>
 
-                <a href="mailto:martinezfabrizzio27@gmail.com?subject=Propuesta%20de%20Proyecto%20-%20Fabrizzio%20Martinez"
+                <!-- Correo Profesional (con stopPropagation para no girar la tarjeta) -->
+                <a href="mailto:martinezfabrizzio27@gmail.com?subject=Contacto%20Profesional%20-%20Fabrizzio%20Martinez"
                    onclick="event.stopPropagation();"
                    title="Enviar correo"
-                   class="group flex items-center gap-1.5 py-0.5 hover:text-white transition-colors duration-200">
-                  <span class="text-neutral-500 group-hover:text-neutral-300 text-[8px] font-mono w-3.5"><i class="fa-regular fa-envelope"></i></span>
-                  <span class="tracking-wide text-[8.5px] truncate underline decoration-neutral-700 underline-offset-2 group-hover:decoration-neutral-300">martinezfabrizzio27@gmail.com</span>
+                   class="group flex items-center gap-2 py-0.5">
+                  <i class="fa-regular fa-envelope text-slate-400 group-hover:text-sky-300 text-[10px] sm:text-xs transition-colors duration-200 shrink-0"></i>
+                  <span class="tracking-normal font-sans text-[8px] sm:text-[10px] text-slate-200 group-hover:text-white truncate underline decoration-slate-600/80 underline-offset-4 group-hover:decoration-sky-300 transition-colors">martinezfabrizzio27@gmail.com</span>
                 </a>
               </div>
             </div>
+
           </div>
 
-          <div class="flex items-center justify-between text-[8px] text-neutral-500 font-light tracking-[0.25em] uppercase border-t border-neutral-850 pt-2">
-            <span>Análisis • Arquitectura • Optimización</span>
-            <span class="font-mono text-[7.5px] text-neutral-600">Disponibilidad Activa</span>
+          <!-- Barra Inferior -->
+          <div class="relative z-10 flex items-center justify-between text-[7.5px] sm:text-[8.5px] text-slate-400/90 font-light tracking-[0.2em] uppercase border-t border-slate-700/60 pt-1.5 sm:pt-2 font-mono">
+            <span class="text-sky-400/90"></span>
+            <span class="text-slate-400">TOCA PARA GIRAR ⇄</span>
           </div>
+
         </div>
 
-        <!-- Cara posterior (Marca & Core Expertise) -->
-        <div class="card-face card-face-back paper-grain p-8 sm:p-10 flex flex-col justify-between">
-          <div class="flex items-center justify-between text-[9px] text-neutral-600 tracking-[0.25em] font-serif uppercase">
-            <span>Sistemas & Tecnología</span>
+        <!-- ================================================================ -->
+        <!-- CARA 2: REVERSO (BRANDING CORPORATIVO ARQUITECTÓNICO)            -->
+        <!-- ================================================================ -->
+        <div class="card-face card-face-back paper-grain p-6 sm:p-8 flex flex-col justify-between">
+          
+          <!-- Pistas Vectoriales Reverso -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 311">
+            <line x1="280" y1="0" x2="280" y2="70" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.6"/>
+            <line x1="280" y1="240" x2="280" y2="311" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.6"/>
+            <path d="M60 155 h95 l25 25 h20 m160 0 h20 l25 -25 h95" stroke="#60a5fa" stroke-width="1.2" stroke-opacity="0.7" fill="none"/>
+            <circle cx="60" cy="155" r="2.5" fill="#93c5fd"/>
+            <circle cx="500" cy="155" r="2.5" fill="#93c5fd"/>
+          </svg>
+
+          <!-- Top Meta -->
+          <div class="relative z-10 flex items-center justify-between text-[8px] sm:text-[8.5px] text-slate-400/90 tracking-[0.25em] font-sans uppercase">
+            <span>Lima, Perú</span>
             <span>Est. 2026</span>
           </div>
 
-          <div class="my-auto flex items-center justify-center gap-5 sm:gap-6">
-            <div class="flex items-end gap-1 h-14 sm:h-16 py-0.5 border-r border-neutral-800 pr-5 shrink-0">
-              <span class="w-[1.5px] h-6 bg-neutral-600"></span>
-              <span class="w-[2px] h-10 bg-neutral-400"></span>
-              <span class="w-[2.5px] h-14 bg-neutral-200"></span>
-              <span class="w-[2px] h-8 bg-neutral-400"></span>
-              <span class="w-[1.5px] h-5 bg-neutral-600"></span>
+          <!-- Emblema Lineal Arquitectónico & Tipografía Centrada -->
+          <div class="relative z-10 my-auto flex items-center justify-center gap-4 sm:gap-6">
+            
+            <!-- Barras Verticales de Arquitectura -->
+            <div class="flex items-end gap-1 h-12 sm:h-16 py-0.5 border-r border-blue-400/20 pr-4 sm:pr-5 shrink-0">
+              <span class="w-[1.5px] h-5 sm:h-6 bg-slate-400"></span>
+              <span class="w-[2px] h-8 sm:h-10 bg-blue-300"></span>
+              <span class="w-[2.5px] h-12 sm:h-14 bg-[#f8fafc]"></span>
+              <span class="w-[2px] h-7 sm:h-8 bg-blue-300"></span>
+              <span class="w-[1.5px] h-4 sm:h-5 bg-slate-400"></span>
             </div>
 
+            <!-- Bloque de Marca -->
             <div class="flex flex-col justify-center">
-              <h2 class="text-lg sm:text-xl font-serif text-[#eaeaea] tracking-[0.22em] font-normal leading-tight letterpress-text uppercase">
+              <h2 class="text-lg sm:text-2xl font-cinzel text-[#f8fafc] tracking-[0.2em] font-normal leading-tight letterpress-title uppercase">
                 FABRIZZIO M.
               </h2>
-              <span class="text-[8.5px] sm:text-[9px] font-sans text-neutral-400 tracking-[0.35em] uppercase font-light mt-1.5">
+              <span class="text-[8px] sm:text-[9.5px] font-sans text-slate-300 tracking-[0.35em] uppercase font-light mt-1 sm:mt-1.5">
                 SYSTEMS & ARCHITECTURE
               </span>
-              <span class="text-[7.5px] font-mono text-neutral-400 tracking-wider uppercase mt-1">
-                Análisis Funcional • Modelado de Datos • Integraciones
-              </span>
             </div>
+
           </div>
 
-          <div class="flex items-center justify-between text-[8px] text-neutral-500 uppercase tracking-[0.25em] font-light border-t border-neutral-850 pt-2">
-            <span>Diseño de Soluciones Tecnológicas</span>
-            <span>Lima, PE</span>
+          <!-- Barra Inferior -->
+          <div class="relative z-10 flex items-center justify-between text-[7.5px] sm:text-[8px] text-slate-400/90 uppercase tracking-[0.25em] font-light border-t border-slate-700/60 pt-1.5 sm:pt-2">
+            <span>Ingeniería & Análisis de Sistemas</span>
+            <span class="text-[7.5px] sm:text-[8px] font-mono text-sky-400">Girar ⇄</span>
           </div>
+
         </div>
 
       </div>
     </div>
 
-    <div id="noticeMsg" class="opacity-0 pointer-events-none transition-opacity duration-300 mt-4 text-xs text-neutral-400 font-sans tracking-wide bg-neutral-900/90 border border-neutral-800 px-3.5 py-1 rounded"></div>
   </main>
 
-  <!-- Contenedor estático para impresión / PDF -->
+  <!-- ================================================================ -->
+  <!-- SECCIÓN ESTÁTICA PARA IMPRESIÓN / PDF (SIN MODO ESPEJO)          -->
+  <!-- ================================================================ -->
   <div class="print-only">
-    <div class="card-print paper-grain p-5 flex flex-col justify-between text-neutral-300">
-      <div class="flex items-center justify-between text-[7.5pt] text-neutral-500 tracking-[0.25em] font-serif uppercase">
-        <span>Fabrizzio Martinez</span>
-        <span>Lima</span>
+    
+    <!-- Anverso Estático (90x50 mm) -->
+    <div class="card-print paper-grain p-5 flex flex-col justify-between text-slate-200">
+      <div class="flex items-center justify-between text-[7.5pt] text-slate-400 tracking-[0.2em] font-sans uppercase">
+        <span>Soluciones TI</span>
+        <span>Lima, Perú</span>
       </div>
+
       <div class="grid grid-cols-12 gap-3 items-center my-auto">
-        <div class="col-span-6 pr-2 border-r border-neutral-800">
-          <h1 class="text-[11pt] font-serif font-medium text-[#eaeaea] tracking-[0.08em] uppercase leading-tight">
+        <div class="col-span-7 pr-2 border-r border-slate-700">
+          <h1 class="text-[12pt] font-cinzel font-medium text-white tracking-[0.08em] uppercase leading-tight">
             Fabrizzio Martinez
           </h1>
-          <p class="text-[6.5pt] font-sans text-neutral-400 tracking-[0.18em] uppercase font-light mt-0.5 leading-tight">
+          <p class="text-[6.5pt] font-sans text-slate-300 tracking-[0.16em] uppercase font-light mt-0.5 leading-tight">
             Ingeniero & Analista de Sistemas
           </p>
-          <div class="mt-1 text-[5.5pt] text-neutral-400 font-sans space-y-0.5">
-            <div>• Análisis funcional & Procesos</div>
-            <div>• Arquitectura & Bases de Datos</div>
-            <div>• Soluciones .NET • SQL • Cloud</div>
+          <div class="mt-2 space-y-0.5 text-[5.5pt] font-sans text-slate-300">
+            <div>- Análisis funcional & Procesos</div>
+            <div>- Arquitectura & Bases de Datos</div>
+            <div>- Desarrollo .NET · T-SQL · Web</div>
           </div>
         </div>
-        <div class="col-span-6 pl-2 text-[6.5pt] font-sans font-light text-neutral-400 space-y-1">
-          <div>
-            <div class="text-[#dedede] font-medium tracking-[0.18em] uppercase text-[6pt]">Soluciones TI & Software</div>
-            <div class="text-neutral-500 text-[5.5pt] tracking-wider">Lima, Perú</div>
-          </div>
-          <div class="space-y-0.5 text-neutral-300 text-[6pt]">
-            <div class="tracking-wider">+51 946 597 728</div>
-            <div class="tracking-wide truncate">martinezfabrizzio27@gmail.com</div>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center justify-between text-[5.5pt] text-neutral-500 font-light tracking-[0.25em] uppercase border-t border-neutral-800 pt-1">
-        <span>Análisis • Arquitectura • Optimización</span>
-        <span>Disponibilidad Activa</span>
-      </div>
-    </div>
 
-    <div class="card-print paper-grain p-5 flex flex-col justify-between text-neutral-300">
-      <div class="flex items-center justify-between text-[7.5pt] text-neutral-500 tracking-[0.25em] font-serif uppercase">
-        <span>Sistemas & Tecnología</span>
-        <span>Est. 2026</span>
-      </div>
-      <div class="my-auto flex items-center justify-center gap-4">
-        <div class="flex items-end gap-1 h-10 border-r border-neutral-800 pr-3 shrink-0">
-          <span class="w-[1px] h-4 bg-neutral-600"></span>
-          <span class="w-[1.5px] h-7 bg-neutral-400"></span>
-          <span class="w-[2px] h-10 bg-neutral-200"></span>
-          <span class="w-[1.5px] h-6 bg-neutral-400"></span>
-          <span class="w-[1px] h-3 bg-neutral-600"></span>
-        </div>
-        <div class="flex flex-col justify-center">
-          <h2 class="text-[12pt] font-serif text-[#eaeaea] tracking-[0.22em] font-normal leading-tight uppercase">
-            FABRIZZIO M.
-          </h2>
-          <span class="text-[6pt] font-sans text-neutral-400 tracking-[0.38em] uppercase font-light mt-1">
-            SYSTEMS & ARCHITECTURE
-          </span>
-          <span class="text-[5pt] font-mono text-neutral-400 tracking-wider uppercase mt-0.5">
-            Modelado de Procesos • Bases de Datos • APIs
-          </span>
+        <div class="col-span-5 pl-2 text-[6.5pt] font-sans space-y-1.5">
+          <div>
+            <div class="text-white font-semibold tracking-wider uppercase text-[6.5pt]">Soluciones TI & Software</div>
+            <div class="text-slate-400 text-[5.5pt] tracking-wider">Consultoría & Desarrollo</div>
+          </div>
+          <div class="space-y-1 text-slate-200 text-[6.5pt]">
+            <div class="flex items-center gap-1.5 tracking-wider font-mono">
+              <i class="fa-brands fa-whatsapp text-slate-400 text-[7.5pt]"></i>
+              <span>+51 946 597 728</span>
+            </div>
+            <div class="flex items-center gap-1.5 tracking-wide truncate">
+              <i class="fa-regular fa-envelope text-slate-400 text-[7pt]"></i>
+              <span>martinezfabrizzio27@gmail.com</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="flex items-center justify-between text-[5.5pt] text-neutral-500 uppercase tracking-[0.25em] font-light border-t border-neutral-800 pt-1">
-        <span>Diseño de Soluciones Tecnológicas</span>
+
+      <div class="flex items-center justify-between text-[5.5pt] text-slate-400 font-light tracking-[0.2em] uppercase border-t border-slate-700 pt-1 font-mono">
+        <span>Sistemas TI // Software</span>
         <span>Lima, PE</span>
       </div>
     </div>
+
+    <!-- Reverso Estático (90x50 mm) -->
+    <div class="card-print paper-grain p-5 flex flex-col justify-between text-slate-200">
+      <div class="flex items-center justify-between text-[7.5pt] text-slate-400 tracking-[0.25em] font-sans uppercase">
+        <span>Lima, Perú</span>
+        <span>Est. 2026</span>
+      </div>
+
+      <div class="my-auto flex items-center justify-center gap-4">
+        <div class="flex items-end gap-1 h-10 border-r border-slate-700 pr-3 shrink-0">
+          <span class="w-[1px] h-4 bg-slate-500"></span>
+          <span class="w-[1.5px] h-7 bg-slate-400"></span>
+          <span class="w-[2px] h-10 bg-slate-200"></span>
+          <span class="w-[1.5px] h-6 bg-slate-400"></span>
+          <span class="w-[1px] h-3 bg-slate-500"></span>
+        </div>
+
+        <div class="flex flex-col justify-center">
+          <h2 class="text-[13pt] font-cinzel text-white tracking-[0.2em] font-normal leading-tight uppercase">
+            FABRIZZIO M.
+          </h2>
+          <span class="text-[6pt] font-sans text-slate-300 tracking-[0.35em] uppercase font-light mt-1">
+            SYSTEMS & ARCHITECTURE
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-[5.5pt] text-slate-400 uppercase tracking-[0.25em] font-light border-t border-slate-700 pt-1">
+        <span>Ingeniería & Análisis de Sistemas</span>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Botones de acción inferiores -->
-  <footer class="no-print w-full max-w-xl flex flex-wrap items-center justify-center gap-3 py-4 border-t border-neutral-900/80">
-    <button onclick="openWhatsApp(event)" 
-       class="px-4 py-2 bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 hover:text-white border border-emerald-800/50 rounded text-xs tracking-wider uppercase font-medium transition active:scale-95 flex items-center gap-2 shadow-sm cursor-pointer">
-      <i class="fa-brands fa-whatsapp text-sm text-emerald-400"></i>
-      <span>Hablar al WhatsApp</span>
-    </button>
-
-    <button onclick="toggleFlip()" class="px-4 py-2 bg-[#141517] hover:bg-[#1b1c20] text-neutral-300 hover:text-white border border-neutral-800 rounded text-xs tracking-wider uppercase font-medium transition active:scale-95 flex items-center gap-2">
-      <i class="fa-solid fa-arrows-rotate text-[11px] text-neutral-400"></i>
-      <span>Girar tarjeta</span>
-    </button>
-
-    <button onclick="downloadVCard()" class="px-4 py-2 bg-[#141517] hover:bg-[#1b1c20] text-neutral-300 hover:text-white border border-neutral-800 rounded text-xs tracking-wider uppercase font-medium transition active:scale-95 flex items-center gap-2">
-      <i class="fa-regular fa-address-card text-[11px] text-neutral-400"></i>
-      <span>Guardar contacto (.vcf)</span>
-    </button>
-
-    <button onclick="window.print()" class="px-4 py-2 bg-neutral-200 hover:bg-white text-neutral-950 rounded text-xs tracking-wider uppercase font-medium transition active:scale-95 flex items-center gap-2 shadow-sm">
-      <i class="fa-solid fa-print text-[11px]"></i>
-      <span>Exportar / Imprimir</span>
-    </button>
-  </footer>
-
+  <!-- Script de Interacción -->
   <script>
     let isFlipped = false;
 
@@ -359,10 +439,11 @@
       }
     }
 
+    /* Apertura directa de WhatsApp sin pantallas intermedias */
     function openWhatsApp(e) {
       if (e) e.stopPropagation();
       const phone = "51946597728";
-      const text = encodeURIComponent("Hola Fabrizzio, me interesa tu perfil de ingeniería y análisis de sistemas para una propuesta de trabajo / proyecto.");
+      const text = encodeURIComponent("Hola Fabrizzio, vi tu tarjeta de presentación y me gustaría ponerme en contacto contigo.");
       
       const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
 
@@ -371,40 +452,6 @@
       } else {
         window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${text}`, '_blank');
       }
-    }
-
-    function showNotice(text) {
-      const el = document.getElementById('noticeMsg');
-      el.textContent = text;
-      el.classList.remove('opacity-0');
-      setTimeout(() => {
-        el.classList.add('opacity-0');
-      }, 2200);
-    }
-
-    function downloadVCard() {
-      const vcardContent = 
-`BEGIN:VCARD
-VERSION:3.0
-N:Martinez Campos;Fabrizzio;Estefanno;;
-FN:Fabrizzio Estefanno Martinez Campos
-TITLE:Ingeniero y Analista de Sistemas
-ORG:Sistemas & Soluciones TI
-TEL;TYPE=CELL,VOICE,WHATSAPP:+51946597728
-EMAIL;TYPE=INTERNET,PREF:martinezfabrizzio27@gmail.com
-ADR;TYPE=WORK:;;Lima;Lima;;Perú
-NOTE:Ingeniería de Software, Análisis Funcional, Modelado de Procesos, Arquitectura de Datos (.NET, T-SQL, Integraciones TI).
-END:VCARD`;
-
-      const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'Fabrizzio_Martinez_Campos.vcf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
-      showNotice('Contacto (.vcf) descargado con éxito');
     }
   </script>
 </body>
